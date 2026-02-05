@@ -7,7 +7,7 @@ Data stored in a database cannot exist in isolation. It must have relationships 
 ## Database Relationships: An Example
 
 Consider a large online store database that needs to retrieve customer details from one table and find orders recorded in another table. The database establishes relationships between these pieces of data through specific mechanisms.
----
+
 ### Example Structure
 
 In an online store database, you might have:
