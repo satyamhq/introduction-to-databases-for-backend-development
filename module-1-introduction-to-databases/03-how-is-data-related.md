@@ -1,97 +1,299 @@
-# 03-how-is-data-related.md
+# How is Data Related?
 
-## Introduction
+## Scenario
 
-Data stored in a database cannot exist in isolation. It must have relationships with other data to be processed into meaningful information. Understanding how data relates across tables is fundamental to effective database design and management.
+You're managing the database of a large online store. Your database must be able to:
 
-## Database Relationships: An Example
+1. Retrieve customer details from one table
+2. Find the order recorded against another table
 
-Consider a large online store database that needs to retrieve customer details from one table and find orders recorded in another table. The database establishes relationships between these pieces of data through specific mechanisms.
+**Question:** How does the database establish a relationship between these pieces of data?
 
-### Example Structure
+## Why Data Must Be Related
 
-In an online store database, you might have:
+Data stored in a database **cannot exist in isolation**. It must have a relationship with other data so that it can be processed into **meaningful information**.
 
-- An **Order Table**
-- A **Customer Table**
+## Example: Online Store Database
 
-To locate the details of a customer's order, you check the order number against the customer ID. The database establishes a link between the data in these tables.
+### Database Structure
 
-## Understanding Tables, Fields, and Records
+In the online store database, you could have:
 
-### The Customer Table
+- **Order table**
+- **Customer table**
 
-A typical customer table contains the following structure:
+### Finding Customer Orders
 
-| Customer ID | FirstName | LastName | Email                 |
-|-------------|-----------+----------+-----------------------|
-| C1          | Sarah     | Hogan    | sarah@example.com     |
-| C2          | John      | Smith    | john@example.com      |
-| C3          | Maria     | Garcia   | maria@example.com     |
-| C4          | Katrina   | Langley  | katrina@example.com   |
+To locate the details of a customer's order:
 
-**Key terminology:**
+1. Check the **order number**
+2. Match it against the **customer ID**
+3. The database establishes a **link** between the data in the tables
 
-- **Fields:** The columns in the table (Customer ID, FirstName, LastName, Email)
-- **Records:** The rows containing data for each field
-- **Entity:** The subject the table represents (in this case, Customer)
-- **Instance:** Each individual record or row (e.g., Sarah Hogan is one customer instance)
+## The Customer Table
 
-## Primary Keys
+### Table Structure
 
-### Purpose
+| Customer ID | FirstName | LastName | Email |
+|-------------|-----------|----------|-------|
+| C1 | Sarah | Hogan | sarah@email.com |
+| C2 | John | Smith | john@email.com |
+| C3 | Maria | Garcia | maria@email.com |
+| C4 | Katrina | Langley | katrina@email.com |
 
-Each record in a table must be uniquely identifiable. If two or more customers share similar information (such as the same first or last name), the database needs a way to distinguish between them.
+### Relational Database Terms
 
-### Definition
+**Columns:**
+- Also called **fields**
+- Examples: Customer ID, FirstName, LastName, Email
 
-A **Primary Key** is a field that contains only unique values that cannot be replicated elsewhere in the table.
+**Rows:**
+- Also called **records**
+- Each row contains data for all fields
 
-In the customer table, the **Customer ID** serves as the primary key. Even if two customers share the same name, they will have separate customer IDs, allowing the database to determine which customer is required.
+**Entity:**
+- All fields and rows work together to store information
+- Example: Customer entity
 
-## Foreign Keys
+### Customer Instances
 
-### The Order Table
+Every row/record in the customer table is an **instance** of the customer entity.
 
-The order table has its own structure:
+**Examples:**
+- Sarah Hogan (Customer ID: C1) - one customer instance
+- Katrina Langley (Customer ID: C4) - another customer instance
 
-| Order ID | Product  | Quantity | Customer ID |
-|----------|----------|----------|-------------|
-| O101     | Laptop   | 1        | C1          |
-| O102     | Mouse    | 2        | C3          |
-| O103     | Keyboard | 1        | C1          |
-| O104     | Monitor  | 1        | C4          |
+## The Primary Key
 
-- **Primary Key:** Order ID (unique to the order table)
-- **Foreign Key:** Customer ID (references the customer table)
+### The Problem
 
-### Definition
+What if two or more customers share similar info?
+- Same first name
+- Same last name
 
-A **Foreign Key** is a field in one table that connects to the primary key field in another table.
+**Example:**
+- Two customers named "John Smith"
+- How does the database distinguish between them?
 
-In the order table, the Customer ID field serves as a foreign key that establishes a relationship with the customer table, where Customer ID is the primary key.
+### The Solution: Primary Key
 
-## Establishing Relationships
+A **primary key** field contains **unique values** that cannot be replicated elsewhere in the table.
 
-By including the Customer ID field in the order table:
+**In the Customer Table:**
+- **Primary Key:** Customer ID
+- Each customer has a separate customer ID
+- Even if two customers share the same name, they have different IDs
 
-1. A relationship is established between the customer table and the order table
-2. Data can be retrieved in a meaningful way from both tables
-3. The database can determine which customer placed which order
+### Primary Key Characteristics
 
-### How It Works
+- Contains **unique values**
+- **Cannot be replicated** in the table
+- Ensures each record is **uniquely identifiable**
+- Database can determine which customer is required
 
-- The **Customer ID** is the **primary key** of the customer table
-- The **Customer ID** becomes a **foreign key** in the order table
-- This connection creates a relationship between the two tables
-- Related data can now be queried and processed together
+## The Order Table
+
+### Table Structure
+
+| Order ID | Product | Quantity | Price | Customer ID |
+|----------|---------|----------|-------|-------------|
+| O1 | Laptop | 1 | $999 | C1 |
+| O2 | Mouse | 2 | $25 | C2 |
+| O3 | Keyboard | 1 | $75 | C1 |
+| O4 | Monitor | 1 | $300 | C4 |
+
+### Fields and Records
+
+Just like the customer table, the order table also has:
+- **Fields** (columns)
+- **Records** (rows)
+
+### Primary Key
+
+**In the Order Table:**
+- **Primary Key:** Order ID
+
+## The Foreign Key
+
+### Customer ID in Order Table
+
+Notice there's also a field named **Customer ID** in the order table with the exact same data as in the customer table.
+
+**Purpose:** The Customer ID helps identify who placed the order.
+
+### Establishing Relationships
+
+By adding the Customer ID field to the order table:
+- A **relationship** is established between the customer table and order table
+- You can pull data in a meaningful way from both tables
+
+### Foreign Key Definition
+
+A **foreign key** is a field in one table that connects to the **primary key** field in the original table.
+
+**In Our Example:**
+- **Customer ID** is the primary key of the customer table
+- **Customer ID** becomes a foreign key in the order table
+- This establishes the relationship between tables
+
+## How Relationships Work
+
+### Visual Representation
+
+```
+Customer Table                Order Table
+┌─────────────────┐          ┌──────────────────┐
+│ Customer ID (PK)│◄─────────┤ Customer ID (FK) │
+│ FirstName       │          │ Order ID (PK)    │
+│ LastName        │          │ Product          │
+│ Email           │          │ Quantity         │
+└─────────────────┘          └──────────────────┘
+```
+
+**Legend:**
+- PK = Primary Key
+- FK = Foreign Key
+- ◄──── = Relationship
+
+### The Connection
+
+1. **Customer Table:** Customer ID is the **primary key**
+2. **Order Table:** Customer ID is the **foreign key**
+3. This creates a **relationship** between the tables
+4. Data in these two tables is now **related**
+
+## Key Database Terms
+
+### Field
+- A column in a table
+- Examples: Customer ID, FirstName, Email
+
+### Record
+- A row in a table
+- Contains data for all fields
+
+### Entity
+- The object being stored
+- Examples: Customer, Order, Product
+
+### Instance
+- A single record/occurrence of an entity
+- Example: One specific customer
+
+### Primary Key
+- Unique identifier for each record
+- Cannot be duplicated in the table
+- Example: Customer ID in Customer table
+
+### Foreign Key
+- Links to a primary key in another table
+- Establishes relationships between tables
+- Example: Customer ID in Order table
+
+## Benefits of Related Data
+
+### Data Integrity
+- Ensures accuracy and consistency
+- Prevents duplicate or orphaned records
+
+### Meaningful Queries
+- Can pull data from multiple tables
+- Create comprehensive reports
+
+### Organized Structure
+- Reduces data redundancy
+- Improves database efficiency
+
+### Example Queries
+
+**Find all orders for a specific customer:**
+```sql
+SELECT * FROM Orders 
+WHERE Customer_ID = 'C1'
+```
+
+**Find customer details for a specific order:**
+```sql
+SELECT Customers.FirstName, Customers.LastName, Orders.Product
+FROM Customers
+JOIN Orders ON Customers.Customer_ID = Orders.Customer_ID
+WHERE Orders.Order_ID = 'O1'
+```
+
+## Real-World Example
+
+### Scenario
+
+Sarah Hogan (Customer ID: C1) places two orders:
+
+**Customer Table:**
+- Customer ID: C1
+- Name: Sarah Hogan
+- Email: sarah@email.com
+
+**Order Table:**
+- Order O1: Laptop, Customer ID: C1
+- Order O3: Keyboard, Customer ID: C1
+
+### The Relationship
+
+Because both orders have Customer ID = C1:
+- The database knows both orders belong to Sarah Hogan
+- You can retrieve all of Sarah's orders
+- You can see Sarah's contact information for each order
+
+## Why Relationships Matter
+
+Without relationships:
+- ❌ Data exists in isolation
+- ❌ Cannot connect customer to orders
+- ❌ Difficult to track who bought what
+- ❌ Redundant data storage
+
+With relationships:
+- ✅ Data is connected and meaningful
+- ✅ Easy to track customer purchases
+- ✅ Efficient data storage
+- ✅ Accurate and consistent information
 
 ## Summary
 
-Database relationships enable:
+### What We Learned
 
-- **Data integrity:** Ensuring accurate connections between related information
-- **Efficient queries:** Retrieving related data from multiple tables
-- **Meaningful information:** Processing connected data to generate insights
+1. **Data cannot exist in isolation** - must be related to be meaningful
+2. **Fields** (columns) and **Records** (rows) store data
+3. **Entity** is the object being stored (Customer, Order)
+4. **Instance** is a single occurrence of an entity
+5. **Primary Key** uniquely identifies each record
+6. **Foreign Key** links tables together
+7. **Relationships** allow meaningful data retrieval
 
-Understanding primary keys, foreign keys, and table relationships is essential for designing robust relational databases that can effectively store and retrieve interconnected data.
+### Key Concepts
+
+**Primary Key:**
+- Unique identifier
+- One per table
+- Cannot be duplicated
+
+**Foreign Key:**
+- Links to primary key in another table
+- Establishes relationships
+- Can appear multiple times
+
+**Relationship:**
+- Connection between tables
+- Enables complex queries
+- Makes data meaningful
+
+### Pattern to Remember
+
+```
+Table A                    Table B
+├─ Field 1 (Primary Key)   ├─ Field A
+├─ Field 2                 ├─ Field B
+└─ Field 3                 └─ Field 1 (Foreign Key)
+                                    ↑
+                                    └─── Links to Table A
+```
+
+By establishing relationships through primary and foreign keys, databases can store data efficiently while maintaining the ability to retrieve it in meaningful and useful ways!
