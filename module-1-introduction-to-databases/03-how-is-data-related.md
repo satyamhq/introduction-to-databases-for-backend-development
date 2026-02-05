@@ -1,4 +1,4 @@
-# How is Data Related?
+# 03-how-is-data-related.md
 
 ## Introduction
 
@@ -23,19 +23,19 @@ To locate the details of a customer's order, you check the order number against 
 
 A typical customer table contains the following structure:
 
-| Customer ID | FirstName | LastName | Email |
-|-------------|-----------|----------|-------|
-| C1 | Sarah | Hogan | sarah@example.com |
-| C2 | John | Smith | john@example.com |
-| C3 | Maria | Garcia | maria@example.com |
-| C4 | Katrina | Langley | katrina@example.com |
+| Customer ID | FirstName | LastName | Email                 |
+|-------------|-----------+----------+-----------------------|
+| C1          | Sarah     | Hogan    | sarah@example.com     |
+| C2          | John      | Smith    | john@example.com      |
+| C3          | Maria     | Garcia   | maria@example.com     |
+| C4          | Katrina   | Langley  | katrina@example.com   |
 
 **Key terminology:**
 
-- **Fields**: The columns in the table (Customer ID, FirstName, LastName, Email)
-- **Records**: The rows containing data for each field
-- **Entity**: The subject the table represents (in this case, Customer)
-- **Instance**: Each individual record or row (e.g., Sarah Hogan is one customer instance)
+- **Fields:** The columns in the table (Customer ID, FirstName, LastName, Email)
+- **Records:** The rows containing data for each field
+- **Entity:** The subject the table represents (in this case, Customer)
+- **Instance:** Each individual record or row (e.g., Sarah Hogan is one customer instance)
 
 ## Primary Keys
 
@@ -55,15 +55,15 @@ In the customer table, the **Customer ID** serves as the primary key. Even if tw
 
 The order table has its own structure:
 
-| Order ID | Product | Quantity | Customer ID |
-|----------|---------|----------|-------------|
-| O101 | Laptop | 1 | C1 |
-| O102 | Mouse | 2 | C3 |
-| O103 | Keyboard | 1 | C1 |
-| O104 | Monitor | 1 | C4 |
+| Order ID | Product  | Quantity | Customer ID |
+|----------|----------|----------|-------------|
+| O101     | Laptop   | 1        | C1          |
+| O102     | Mouse    | 2        | C3          |
+| O103     | Keyboard | 1        | C1          |
+| O104     | Monitor  | 1        | C4          |
 
-- **Primary Key**: Order ID (unique to the order table)
-- **Foreign Key**: Customer ID (references the customer table)
+- **Primary Key:** Order ID (unique to the order table)
+- **Foreign Key:** Customer ID (references the customer table)
 
 ### Definition
 
@@ -90,8 +90,8 @@ By including the Customer ID field in the order table:
 
 Database relationships enable:
 
-- **Data integrity**: Ensuring accurate connections between related information
-- **Efficient queries**: Retrieving related data from multiple tables
-- **Meaningful information**: Processing connected data to generate insights
+- **Data integrity:** Ensuring accurate connections between related information
+- **Efficient queries:** Retrieving related data from multiple tables
+- **Meaningful information:** Processing connected data to generate insights
 
 Understanding primary keys, foreign keys, and table relationships is essential for designing robust relational databases that can effectively store and retrieve interconnected data.
